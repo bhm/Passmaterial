@@ -1,0 +1,26 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".Passmaterial">
+
+    <!--<ListView-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@id/recycler"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@android:id/button1"/>
+
+    <Button
+        android:id="@android:id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/dark_purple_400"
+        android:gravity="center"
+        android:text="@string/get_new_passphrase"
+        android:textAllCaps="true"
+        android:textColor="@color/white_87"
+        android:textSize="@dimen/abc_text_size_button_material"/>
+
+</RelativeLayout>

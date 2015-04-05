@@ -1,0 +1,18 @@
+apply plugin: 'com.android.library'
+repositories {
+    mavenCentral()
+}
+android {
+    compileSdkVersion 22
+    buildToolsVersion '22.0.1'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_6
+        targetCompatibility JavaVersion.VERSION_1_6
+    }
+    dexOptions {
+        incremental false
+    }
+}
+
+dependencies {
+}

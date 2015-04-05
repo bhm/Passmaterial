@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="recycler" type="id"/>
+    <item name="fab_pivot" type="id"/>
+    <item name="peek_through" type="id"/>
+    <item name="pass_phrase" type="id"/>
+    <item name="toolbar" type="id"/>
+</resources>

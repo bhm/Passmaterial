@@ -1,0 +1,10 @@
+<manifest
+    package="com.bustiblelemons.bustiblelibs"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <application
+        android:allowBackup="true"/>
+
+</manifest>

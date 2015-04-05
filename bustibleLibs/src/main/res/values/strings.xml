@@ -1,0 +1,25 @@
+<resources>
+
+    <string name="app_name">Bustible Libs</string>
+    <string name="placeholder_title">Title</string>
+    <string name="placeholder_perc_val">99</string>
+    <string name="placeholder_year">1920</string>
+    <string name="placeholder_street">6243 spring hill rd</string>
+    <string name="placeholder_city">lexington</string>
+    <string name="placeholder_state">virginia</string>
+    <string name="placeholder_zipcode">64309</string>
+    <string name="hint_zipcode">Zip Code</string>
+    <string name="state">State</string>
+    <string name="city">City</string>
+    <string name="street">Street</string>
+
+    <string name="any">Any</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="boy">Boy</string>
+    <string name="girl">Girl</string>
+    <string name="men">Men</string>
+    <string name="woman">Woman</string>
+    <string name="placeholder_description">Description</string>
+    <string name="placeholder_slipsum_1">Well, the way they make shows is, they make one show. That show\'s called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they\'re going to make more shows. Some pilots get picked and become television programs. Some don\'t, become nothing. She starred in one of the ones that became nothing.</string>
+</resources>
