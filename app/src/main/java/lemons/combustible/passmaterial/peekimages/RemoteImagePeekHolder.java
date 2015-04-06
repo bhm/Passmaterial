@@ -23,7 +23,7 @@ public class RemoteImagePeekHolder extends AbsRecyclerHolder<OnlinePhotoUrl> {
     }
 
     @Override
-    public void onBindData(OnlinePhotoUrl item) {
+    public void onBindData(OnlinePhotoUrl item, int position) {
         if (mRemoteImage != null && item != null) {
             mRemoteImage.loadFrom(item.getUrl());
         }

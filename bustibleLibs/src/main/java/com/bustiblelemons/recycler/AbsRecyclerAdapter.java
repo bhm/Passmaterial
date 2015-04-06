@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -43,7 +42,7 @@ public abstract class AbsRecyclerAdapter<I, VH extends AbsRecyclerHolder<I>>
     @Override
     public void onBindViewHolder(VH vh, int position) {
         if (vh != null) {
-            vh.onBindData(getItem(position));
+            vh.onBindData(getItem(position), position);
         }
     }
 
@@ -143,9 +142,16 @@ public abstract class AbsRecyclerAdapter<I, VH extends AbsRecyclerHolder<I>>
         notifyDataSetChanged();
     }
 
-    public void refreshData(I... items) {
+    public void refreshData(@NonNull I... items) {
         if (items != null && items.length > 0) {
-            refreshData(Arrays.asList(items));
+            if (mData == null) {
+                mData = new ArrayList<I>(items.length);
+            }
+            mData.clear();
+            for (I item : items) {
+                mData.add(item);
+            }
+            notifyDataSetChanged();
         }
     }
 
@@ -159,10 +165,11 @@ public abstract class AbsRecyclerAdapter<I, VH extends AbsRecyclerHolder<I>>
             throw new NullPointerException("param cannot be null");
         }
         if (mData == null) {
-            mData = new ArrayList<I>(data.size());
+            mData = new ArrayList<I>(data);
+        } else {
+            mData.clear();
+            mData.addAll(data);
         }
-        mData.clear();
-        mData.addAll(data);
     }
 
     public void removeItem(int pos) {

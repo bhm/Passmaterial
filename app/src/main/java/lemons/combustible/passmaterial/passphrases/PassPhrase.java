@@ -10,7 +10,7 @@ import java.util.List;
 public class PassPhrase implements IPassPhrase {
     private List<Word> mWords;
     private boolean    mUsePadding;
-    private boolean    mUseDelimiters;
+    private boolean mUseDelimiters = true;
 
     public List<Word> getWords() {
         if (mWords == null) {

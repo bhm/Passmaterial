@@ -26,6 +26,8 @@ public class WordnikWord implements Word {
     private String  word;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    @JsonProperty("definition")
+    private CharSequence mDefinition;
 
     /**
      * @return The id
@@ -81,5 +83,23 @@ public class WordnikWord implements Word {
     @Override
     public CharSequence getWordText() {
         return getWord();
+    }
+
+    @Override
+    public boolean hasDefinition() {
+        return getWordDefinition() != null;
+    }
+
+    @Override
+    @JsonProperty("definition")
+
+    public CharSequence getWordDefinition() {
+        return mDefinition;
+    }
+
+    @Override
+    @JsonProperty("definition")
+    public void setWordDefinition(CharSequence definition) {
+        mDefinition = definition;
     }
 }

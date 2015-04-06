@@ -1,5 +1,8 @@
 package lemons.combustible.passmaterial;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -7,6 +10,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.bustiblelemons.logging.Logger;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -14,23 +20,24 @@ import butterknife.OnClick;
 import butterknife.Optional;
 import lemons.combustible.passmaterial.passphrases.NewPassPhraseAdapter;
 import lemons.combustible.passmaterial.passphrases.OnCopyToClipBoard;
-import lemons.combustible.passmaterial.passphrases.OnPassPhraseGenerated;
 import lemons.combustible.passmaterial.passphrases.PassPhrase;
 import lemons.combustible.passmaterial.passphrases.PassPhraseGenerator;
 import lemons.combustible.passmaterial.passphrases.generators.PassphraseGenerators;
 import lemons.combustible.passmaterial.passphrases.generators.PreferredGenerator;
+import rx.Observer;
 
 
 public class PassmaterialActivity extends ActionBarActivity implements OnCopyToClipBoard,
-                                                                       OnPassPhraseGenerated {
+                                                                       Observer<PassPhrase> {
 
+    private static final Logger log = new Logger(PassmaterialActivity.class);
     @Optional
     @InjectView(R.id.recycler)
     RecyclerView mRecyclerView;
-
+    private PreferredGenerator mPreferredGenerator = PreferredGenerator.Wordnik;
     private PassPhraseGenerator  mGenerator;
     private NewPassPhraseAdapter mNewPassPhraseAdapter;
-    private PreferredGenerator mPreferredGenerator = PreferredGenerator.Wordnik;
+    private ClipboardManager mClipboardManager;
 
     @Optional
     @OnClick(android.R.id.button1)
@@ -47,11 +54,6 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
             mGenerator = PassphraseGenerators.getGenerator(mPreferredGenerator);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-            if (mNewPassPhraseAdapter == null) {
-                mNewPassPhraseAdapter = new NewPassPhraseAdapter()
-                        .withOnCopyToClipboard(this);
-            }
-            mRecyclerView.setAdapter(mNewPassPhraseAdapter);
         }
     }
 
@@ -87,13 +89,35 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
 
     @Override
     public void onCopyToClipboard(CharSequence passphrase) {
-        // TODO Copy to clipboard logic
+        if (mClipboardManager == null) {
+            mClipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText(getString(R.string.clipboard_label), passphrase);
+            mClipboardManager.setPrimaryClip(clip);
+            Toast.makeText(this, R.string.copied_to_clirboard, Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    @Override
+    public void onCompleted() {
+
     }
 
     @Override
-    public void onPassPhraseGenerated(PassPhrase bundle) {
-        if (mNewPassPhraseAdapter != null) {
-            mNewPassPhraseAdapter.refreshData(bundle, bundle);
+    public void onError(Throwable e) {
+
+    }
+
+    @Override
+    public void onNext(PassPhrase passPhrase) {
+        log.d("onNext %s", passPhrase);
+        if (mRecyclerView != null) {
+            if (mNewPassPhraseAdapter == null) {
+                mNewPassPhraseAdapter = new NewPassPhraseAdapter()
+                        .withOnCopyToClipboard(this);
+                mRecyclerView.setAdapter(mNewPassPhraseAdapter);
+            }
+            mNewPassPhraseAdapter.refreshData(passPhrase);
         }
     }
 }

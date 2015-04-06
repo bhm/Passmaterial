@@ -15,6 +15,6 @@ public abstract class AbsRecyclerHolder<I> extends RecyclerView.ViewHolder {
         ButterKnife.inject(this, itemView);
     }
 
-    public abstract void onBindData(I item);
+    public abstract void onBindData(I item, int position);
 
 }

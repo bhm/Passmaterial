@@ -4,4 +4,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="get_new_passphrase">NEW</string>
+    <string name="clipboard_label">Passmaterial passphrase</string>
+    <string name="copied_to_clirboard">Copied to clipboard</string>
 </resources>

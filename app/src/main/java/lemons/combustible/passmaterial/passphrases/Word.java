@@ -5,4 +5,10 @@ package lemons.combustible.passmaterial.passphrases;
  */
 public interface Word {
     CharSequence getWordText();
+
+    CharSequence getWordDefinition();
+
+    void setWordDefinition(CharSequence sequence);
+
+    boolean hasDefinition();
 }

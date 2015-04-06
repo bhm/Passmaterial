@@ -17,6 +17,12 @@
         <item name="android:layout_margin">@dimen/padding_8</item>
     </style>
 
+    <style name="card_seam">
+        <item name="android:background">@drawable/card_selector</item>
+        <item name="android:layout_marginLeft">@dimen/padding_8</item>
+        <item name="android:layout_marginRight">@dimen/padding_8</item>
+    </style>
+
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->

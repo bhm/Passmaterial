@@ -5,4 +5,5 @@
     <item name="peek_through" type="id"/>
     <item name="pass_phrase" type="id"/>
     <item name="toolbar" type="id"/>
+    <item name="pass_phrase_definition" type="id"/>
 </resources>

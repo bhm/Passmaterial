@@ -14,7 +14,7 @@ public class PeekThroughHolder extends AbsRecyclerHolder<PassPhrase> {
     }
 
     @Override
-    public void onBindData(PassPhrase item) {
+    public void onBindData(PassPhrase item, int position) {
 
     }
 }

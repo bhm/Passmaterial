@@ -34,7 +34,7 @@ public class PassPhraseCell extends AbsRecyclerHolder<PassPhrase> {
     }
 
     @Override
-    public void onBindData(PassPhrase item) {
+    public void onBindData(PassPhrase item, int position) {
         if (item != null && mTitleView != null) {
             mTitleView.setText(item.getText());
         }
