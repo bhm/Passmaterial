@@ -1,4 +1,4 @@
-package lemons.combustible.passmaterial.passphrases.generators;
+package lemons.combustible.passmaterial.passphrases.generators.wordnik;
 
 import com.bustiblelemons.logging.Logger;
 
@@ -10,9 +10,6 @@ import lemons.combustible.passmaterial.passphrases.PassPhrase;
 import lemons.combustible.passmaterial.passphrases.PassPhraseGenerator;
 import lemons.combustible.passmaterial.passphrases.PassphraseBundle;
 import lemons.combustible.passmaterial.passphrases.Word;
-import lemons.combustible.passmaterial.passphrases.generators.wordnik.WordnikDefnition;
-import lemons.combustible.passmaterial.passphrases.generators.wordnik.WordnikRandomWordsQuery;
-import lemons.combustible.passmaterial.passphrases.generators.wordnik.WordnikWord;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;

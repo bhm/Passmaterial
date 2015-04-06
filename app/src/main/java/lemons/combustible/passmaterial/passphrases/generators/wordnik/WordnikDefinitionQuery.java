@@ -1,10 +1,8 @@
-package lemons.combustible.passmaterial.passphrases.generators;
+package lemons.combustible.passmaterial.passphrases.generators.wordnik;
 
 import java.util.Locale;
 
 import lemons.combustible.passmaterial.passphrases.Word;
-import lemons.combustible.passmaterial.passphrases.generators.wordnik.AbsWordnikQuery;
-import lemons.combustible.passmaterial.passphrases.generators.wordnik.WordnikDefnition;
 
 /**
  * Created by hiv on 06.04.15.

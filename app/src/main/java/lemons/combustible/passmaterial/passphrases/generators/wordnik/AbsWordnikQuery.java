@@ -2,8 +2,6 @@ package lemons.combustible.passmaterial.passphrases.generators.wordnik;
 
 import com.bustiblelemons.network.AbsJacksonQuery;
 
-import lemons.combustible.passmaterial.passphrases.generators.Wordnik_Api;
-
 /**
  * Created by hiv on 06.04.15.
  */
