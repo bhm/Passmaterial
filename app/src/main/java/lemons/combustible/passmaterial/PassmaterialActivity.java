@@ -79,11 +79,12 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
 
         }
     };
+    private int mWordCount = 3;
 
     @Optional
     @OnClick(android.R.id.button1)
     public void onGenerateNewBundle() {
-        mGenerator.generateBundleAsync(this);
+        mGenerator.generateBundleAsync(this, mWordCount);
     }
 
     @Override
@@ -91,6 +92,7 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passmaterial);
         ButterKnife.inject(this);
+        mWordCount = Settings.getWordCount(this, mWordCount);
         if (mRecyclerView != null) {
             mGenerator = PassphraseGenerators.getGenerator(mPreferredGenerator);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -101,6 +103,8 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
             mGridLayoutManager = new GridLayoutManager(this, 2);
             mImagesRecyclerView.setLayoutManager(mGridLayoutManager);
             mImagesRecyclerView.setHasFixedSize(true);
+//            mImagesAdapter = new ImagesAdapter();
+//            mImagesAdapter.refreshData(new ArrayList<OnlinePhotoUrl>(4));
         }
     }
 

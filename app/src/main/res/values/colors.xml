@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dark_purple_scrim_start">#1184ffff</color>
+    <color name="dark_purple_scrim_middle">#2500e6ff</color>
+    <color name="dark_purple_scrim_end">#3d00b8d4</color>
+</resources>

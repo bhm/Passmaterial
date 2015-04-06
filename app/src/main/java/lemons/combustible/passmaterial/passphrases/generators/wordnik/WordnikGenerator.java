@@ -39,8 +39,8 @@ public class WordnikGenerator implements PassPhraseGenerator {
     }
 
     @Override
-    public void generateBundleAsync(Observer<? super PassPhrase> observer) {
-        mSub = Observable.create(getPassPhraseFromWordnik())
+    public void generateBundleAsync(Observer<? super PassPhrase> observer, int wordCount) {
+        mSub = Observable.create(getPassPhraseFromWordnik(wordCount))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -103,13 +103,13 @@ public class WordnikGenerator implements PassPhraseGenerator {
         }
     }
 
-    public Observable.OnSubscribe<PassPhrase> getPassPhraseFromWordnik() {
+    public Observable.OnSubscribe<PassPhrase> getPassPhraseFromWordnik(final int wordCount) {
         return new Observable.OnSubscribe<PassPhrase>() {
             @Override
             public void call(Subscriber<? super PassPhrase> subscriber) {
                 try {
                     WordnikRandomWordsQuery q = new WordnikRandomWordsQuery();
-                    q.withLimit(10);
+                    q.withLimit(wordCount);
                     List<WordnikWord> object = q.getObjectCollection(WordnikWord.class);
                     PassPhrase phrase = new PassPhrase();
                     phrase.addWords(object);

@@ -64,6 +64,10 @@ public class BaseSettings {
         }
     }
 
+    public static int getInt(Context context, String key, int def) {
+        return getPreferences(context).getInt(key, def);
+    }
+
     public static <T extends Enum<T>> T getEnum(Context context, String key, Class<T> type,
                                                 String defaultValue) {
         try {

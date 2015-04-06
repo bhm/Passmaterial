@@ -11,6 +11,13 @@
         android:layout_height="332dp"
         tools:background="@color/orange_100"/>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/images_recycler"
+        android:layout_alignTop="@id/images_recycler"
+        android:background="@drawable/scrim"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@id/recycler"
         android:layout_width="wrap_content"
