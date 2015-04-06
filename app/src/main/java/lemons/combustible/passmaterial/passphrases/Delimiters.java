@@ -85,6 +85,7 @@ public class Delimiters implements Serializable {
             if (entry != null && !TextUtils.isEmpty(entry.getKey())) {
                 if (entry.getValue()) {
                     String k = entry.getKey();
+                    allowed.add(k);
                 }
             }
         }

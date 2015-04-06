@@ -1,11 +1,10 @@
 package lemons.combustible.passmaterial.passphrases;
 
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.bustiblelemons.recycler.AbsRecyclerHolder;
-import com.rey.material.widget.CheckBox;
+import com.rey.material.widget.Switch;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -17,19 +16,19 @@ import lemons.combustible.passmaterial.passphrases.settings.OnOpenSettings;
  * Created by hiv on 01.04.15.
  */
 public class PassPhraseCell extends AbsRecyclerHolder<PassPhrase> implements
-                                                                  CompoundButton.OnCheckedChangeListener {
+                                                                  View.OnClickListener {
 
     @Optional
     @InjectView(android.R.id.title)
     TextView mTitleView;
 
-    @Optional
-    @InjectView(R.id.use_padding)
-    CheckBox mUsePaddingCheckbox;
+    //    @Optional
+//    @InjectView(R.id.use_padding)
+    Switch mUsePaddingCheckbox;
 
-    @Optional
-    @InjectView(R.id.use_delimiters)
-    CheckBox mUseDelimitersCheckbox;
+    //    @Optional
+//    @InjectView(R.id.use_delimiters)
+    Switch mUseDelimitersCheckbox;
 
     private OnCopyToClipBoard mOnCopyToClipBoard;
     private PassPhrase     mItem;
@@ -37,17 +36,19 @@ public class PassPhraseCell extends AbsRecyclerHolder<PassPhrase> implements
 
     public PassPhraseCell(View view, OnCopyToClipBoard onCopyToClipBoard) {
         super(view);
+        mUsePaddingCheckbox = (Switch) view.findViewById(R.id.use_padding);
+        mUsePaddingCheckbox = (Switch) view.findViewById(R.id.use_delimiters);
         mOnCopyToClipBoard = onCopyToClipBoard;
         if (mUsePaddingCheckbox != null) {
-            mUsePaddingCheckbox.setOnCheckedChangeListener(this);
+            mUsePaddingCheckbox.setOnClickListener(this);
         }
         if (mUseDelimitersCheckbox != null) {
-            mUseDelimitersCheckbox.setOnCheckedChangeListener(this);
+            mUseDelimitersCheckbox.setOnClickListener(this);
         }
     }
 
-    @Optional
-    @OnClick(R.id.action_settings)
+    //    @Optional
+//    @OnClick(R.id.action_settings)
     void onOpenSettings() {
         if (mOnOpenSettings != null) {
             mOnOpenSettings.onOpenSettings();
@@ -78,15 +79,17 @@ public class PassPhraseCell extends AbsRecyclerHolder<PassPhrase> implements
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (buttonView != null && mItem != null) {
-            int id = buttonView.getId();
+    public void onClick(View v) {
+        if (v instanceof Switch) {
+            Switch aSwitch = (Switch) v;
+            boolean isChecked = aSwitch.isChecked();
+            int id = v.getId();
             if (id == R.id.use_padding) {
                 mItem.setUsePadding(isChecked);
             } else if (id == R.id.use_delimiters) {
                 mItem.setUseDelimiters(isChecked);
             }
+            setText(mItem);
         }
-        setText(mItem);
     }
 }

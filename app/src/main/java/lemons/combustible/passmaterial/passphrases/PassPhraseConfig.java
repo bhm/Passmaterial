@@ -14,8 +14,9 @@ import java.util.List;
  * Created by hiv on 06.04.15.
  */
 public class PassPhraseConfig implements Serializable {
-    public static final int DEFAULT_MAX_WORD_COUNT = 10;
-    public static final int DEFAULT_WORD_COUNT     = 4;
+    public static final  int DEFAULT_MAX_WORD_COUNT = 10;
+    public static final  int DEFAULT_WORD_COUNT     = 4;
+    private static final int DEFAULT_PADDING_LENGTH = 3;
     @JsonProperty("use_padding")
     private boolean    mUsePadding;
     @JsonProperty("use_delimiters")
@@ -34,6 +35,7 @@ public class PassPhraseConfig implements Serializable {
     public PassPhraseConfig() {
         mWordCount = DEFAULT_WORD_COUNT;
         mMaxWordCount = DEFAULT_MAX_WORD_COUNT;
+        mPaddingLength = DEFAULT_PADDING_LENGTH;
         mUseDelimiters = true;
         mUsePadding = true;
         mWords = new ArrayList<Word>(0);
