@@ -23,12 +23,13 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_16"
             android:text="@string/placeholder_title"
-            android:textColor="@color/black_54"
+            android:textColor="@color/primary_text"
             android:textSize="@dimen/material_headline"/>
     </RelativeLayout>
 
-    <at.markushi.ui.CircleButton
+    <com.rey.material.widget.FloatingActionButton
         android:id="@android:id/copy"
+        style="@style/FloatingWaveColorButtonRippleStyle"
         android:layout_width="@dimen/fab"
         android:layout_height="@dimen/fab"
         android:layout_alignParentEnd="true"
@@ -36,7 +37,8 @@
         android:layout_below="@id/fab_pivot"
         android:layout_marginBottom="@dimen/fab_offset"
         android:layout_marginRight="@dimen/padding_16"
-        android:src="@drawable/ic_content_content_copy"
-        app:cb_color="@color/cyan_500"/>
+        app:fab_backgroundColor="@color/accent"
+        app:fab_iconSize="@dimen/fab_icon_size"
+        app:fab_iconSrc="@drawable/ic_content_content_copy"/>
 
 </RelativeLayout>

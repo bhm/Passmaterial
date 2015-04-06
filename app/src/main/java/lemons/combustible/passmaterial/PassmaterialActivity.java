@@ -49,9 +49,10 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
     private PreferredGenerator mPreferredGenerator = PreferredGenerator.Wordnik;
     private PassPhraseGenerator  mGenerator;
     private NewPassPhraseAdapter mNewPassPhraseAdapter;
-    private ClipboardManager  mClipboardManager;
-    private ImagesAdapter     mImagesAdapter;
-    private GridLayoutManager mGridLayoutManager;
+    private ClipboardManager     mClipboardManager;
+    private ImagesAdapter        mImagesAdapter;
+    private GridLayoutManager    mGridLayoutManager;
+
     private Observer<Collection<OnlinePhotoUrl>> mImagesObserver = new Observer<Collection<OnlinePhotoUrl>>() {
         @Override
         public void onCompleted() {
@@ -72,14 +73,17 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
                     mImagesRecyclerView.setAdapter(mImagesAdapter);
                 }
                 int size = onlinePhotoUrls.size();
-                int span = (int) Math.sqrt(size);
+                int span = size;
+                if (size > 3) {
+                    span = (int) Math.sqrt(size);
+                }
                 mGridLayoutManager.setSpanCount(span);
                 mImagesAdapter.refreshData(onlinePhotoUrls);
             }
 
         }
     };
-    private int mWordCount = 3;
+    private int                                  mWordCount      = 3;
 
     @Optional
     @OnClick(android.R.id.button1)

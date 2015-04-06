@@ -40,7 +40,7 @@ public class PassPhraseDefinition extends AbsRecyclerHolder<PassPhrase>
             if (words != null) {
                 // because we heave a peek through header and a view with the passphrase
                 int pos = position - 2;
-                if (pos > 0 && pos < words.size() && words.get(pos) != null) {
+                if (pos >= 0 && pos < words.size() && words.get(pos) != null) {
                     Word word = words.get(pos);
                     if (mTitleView != null) {
                         CharSequence title = word.getWordText();

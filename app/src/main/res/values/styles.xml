@@ -5,4 +5,119 @@
         <!-- Customize your theme here. -->
     </style>
 
+
+    <!-- Button Style -->
+
+
+    <style name="FlatButtonRippleStyle" parent="Material.Drawable.Ripple.Touch.Light">
+        <item name="rd_cornerRadius">4dp</item>
+    </style>
+
+    <style name="FlatWaveButtonRippleStyle" parent="Material.Drawable.Ripple.Wave.Light">
+        <item name="rd_cornerRadius">4dp</item>
+    </style>
+
+    <style name="FlatColorButtonRippleStyle" parent="Material.Drawable.Ripple.Touch.Light">
+        <item name="rd_backgroundColor">@color/primary</item>
+        <item name="rd_rippleColor">@color/accent</item>
+        <item name="rd_cornerRadius">4dp</item>
+    </style>
+
+    <style name="FlatWaveColorButtonRippleStyle" parent="Material.Drawable.Ripple.Wave.Light">
+        <item name="rd_rippleColor">@color/accent</item>
+        <item name="rd_cornerRadius">4dp</item>
+    </style>
+
+    <style name="RaiseButtonRippleStyle" parent="Material.Drawable.Ripple.Touch.Light">
+        <item name="rd_background">@color/primary</item>
+        <item name="rd_leftPadding">1dp</item>
+        <item name="rd_topPadding">1dp</item>
+        <item name="rd_rightPadding">1dp</item>
+        <item name="rd_bottomPadding">2dp</item>
+    </style>
+
+    <style name="RaiseWaveButtonRippleStyle" parent="Material.Drawable.Ripple.Wave.Light">
+        <item name="rd_background">@color/primary</item>
+        <item name="rd_leftPadding">1dp</item>
+        <item name="rd_topPadding">1dp</item>
+        <item name="rd_rightPadding">1dp</item>
+        <item name="rd_bottomPadding">2dp</item>
+    </style>
+
+    <style name="RaiseColorButtonRippleStyle" parent="Material.Drawable.Ripple.Touch.Light">
+        <item name="rd_background">@color/primary</item>
+        <item name="rd_rippleColor">@color/accent</item>
+        <item name="rd_leftPadding">1dp</item>
+        <item name="rd_topPadding">1dp</item>
+        <item name="rd_rightPadding">1dp</item>
+        <item name="rd_bottomPadding">2dp</item>
+        <item name="delayClick">false</item>
+    </style>
+
+    <style name="RaiseWaveColorButtonRippleStyle" parent="Material.Drawable.Ripple.Wave.Light">
+        <item name="rd_rippleColor">@color/accent</item>
+        <item name="rd_leftPadding">1dp</item>
+        <item name="rd_topPadding">1dp</item>
+        <item name="rd_rightPadding">1dp</item>
+        <item name="rd_bottomPadding">2dp</item>
+    </style>
+
+    <!-- FloatingActionButton Style -->
+
+    <style name="FloatingActionButton" parent="Material.Widget.FloatingActionButton.Light">
+        <item name="fab_backgroundColor">@color/accent</item>
+        <item name="fab_elevation">4dp</item>
+        <item name="fab_iconLineMorphing">@style/FloatingActionButtonIcon.Light</item>
+        <item name="ripple">@style/Material.Drawable.Ripple.Touch.Light</item>
+        <item name="delayClick">false</item>
+    </style>
+
+    <style name="FloatingWaveActionButton" parent="Material.Widget.FloatingActionButton.Light">
+        <item name="fab_backgroundColor">@color/accent</item>
+        <item name="fab_elevation">4dp</item>
+        <item name="fab_iconLineMorphing">@style/FloatingActionButtonIcon.Light</item>
+        <item name="ripple">@style/Material.Drawable.Ripple.Wave.Light</item>
+        <item name="delayClick">false</item>
+    </style>
+
+    <style name="FloatingColorActionButton" parent="Material.Widget.FloatingActionButton.Light">
+        <item name="fab_backgroundColor">@color/accent</item>
+        <item name="fab_elevation">4dp</item>
+        <item name="fab_iconLineMorphing">@style/FloatingActionButtonIcon</item>
+        <item name="ripple">@style/FloatingColorButtonRippleStyle</item>
+        <item name="delayClick">true</item>
+    </style>
+
+    <style name="FloatingWaveColorActionButton" parent="Material.Widget.FloatingActionButton.Light">
+        <item name="fab_backgroundColor">@color/accent</item>
+        <item name="fab_elevation">4dp</item>
+        <item name="fab_iconLineMorphing">@style/FloatingActionButtonIcon</item>
+        <item name="ripple">@style/FloatingWaveColorButtonRippleStyle</item>
+        <item name="delayClick">true</item>
+    </style>
+
+    <style name="FloatingColorButtonRippleStyle" parent="Material.Drawable.Ripple.Touch.Light">
+        <item name="rd_rippleColor">@color/primary_dark</item>
+    </style>
+
+    <style name="FloatingWaveColorButtonRippleStyle" parent="Material.Drawable.Ripple.Wave.Light">
+        <item name="rd_rippleColor">@color/primary_dark</item>
+    </style>
+
+    <style name="FloatingActionButtonIcon">
+        <item name="lmd_curState">0</item>
+        <item name="lmd_padding">2dp</item>
+        <item name="lmd_animDuration">400</item>
+        <item name="lmd_interpolator">@android:anim/accelerate_decelerate_interpolator</item>
+        <item name="lmd_strokeSize">3dp</item>
+        <item name="lmd_strokeColor">#FFFFFFFF</item>
+        <item name="lmd_strokeCap">butt</item>
+        <item name="lmd_strokeJoin">miter</item>
+        <item name="lmd_clockwise">true</item>
+    </style>
+
+    <style name="FloatingActionButtonIcon.Light" parent="FloatingActionButtonIcon">
+        <item name="lmd_strokeColor">#FF000000</item>
+    </style>
+
 </resources>
