@@ -1,5 +1,7 @@
 package lemons.combustible.passmaterial.passphrases.generators.wordnik;
 
+import android.net.Uri;
+
 import java.util.Locale;
 
 import lemons.combustible.passmaterial.passphrases.Word;
@@ -18,6 +20,9 @@ public class WordnikDefinitionQuery extends AbsWordnikQuery<WordnikDefnition> {
 
     @Override
     public String getMethod() {
-        return String.format(Locale.ENGLISH, sMethodPattern, mWord.getWordText());
+        if (mWord != null && mWord.getWordText() != null) {
+            return String.format(Locale.ENGLISH, sMethodPattern, Uri.encode(mWord.getWordText().toString()));
+        }
+        return null;
     }
 }
