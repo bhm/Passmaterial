@@ -6,4 +6,6 @@
     <string name="get_new_passphrase">NEW</string>
     <string name="clipboard_label">Passmaterial passphrase</string>
     <string name="copied_to_clirboard">Copied to clipboard</string>
+    <string name="use_delimiters">Delimiters</string>
+    <string name="use_padding">Padding</string>
 </resources>
