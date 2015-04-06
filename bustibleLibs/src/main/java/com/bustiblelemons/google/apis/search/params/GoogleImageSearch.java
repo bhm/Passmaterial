@@ -55,6 +55,11 @@ public class GoogleImageSearch extends AbsOnlineQuery implements GImageSearch {
     }
 
     @Override
+    public Type getType() {
+        return Type.GET;
+    }
+
+    @Override
     public GImageSearch.safe getSafeMode() {
         return (GImageSearch.safe) getValue(GImageSearch.safe.class);
     }

@@ -14,4 +14,11 @@ public class OnlinePhotoUrlImpl implements OnlinePhotoUrl {
     public String getUrl() {
         return mUrl;
     }
+
+    @Override
+    public String toString() {
+        return "OnlinePhotoUrlImpl{" +
+                "mUrl='" + mUrl + '\'' +
+                '}';
+    }
 }

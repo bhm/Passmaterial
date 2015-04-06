@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -13,11 +14,16 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.bustiblelemons.logging.Logger;
+import com.bustiblelemons.model.OnlinePhotoUrl;
+
+import java.util.Collection;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.Optional;
+import lemons.combustible.passmaterial.google.ImagesAdapter;
+import lemons.combustible.passmaterial.google.ImagesRetriever;
 import lemons.combustible.passmaterial.passphrases.NewPassPhraseAdapter;
 import lemons.combustible.passmaterial.passphrases.OnCopyToClipBoard;
 import lemons.combustible.passmaterial.passphrases.PassPhrase;
@@ -34,10 +40,45 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
     @Optional
     @InjectView(R.id.recycler)
     RecyclerView mRecyclerView;
+
+    @Optional
+    @InjectView(R.id.images_recycler)
+    RecyclerView mImagesRecyclerView;
+
+
     private PreferredGenerator mPreferredGenerator = PreferredGenerator.Wordnik;
     private PassPhraseGenerator  mGenerator;
     private NewPassPhraseAdapter mNewPassPhraseAdapter;
-    private ClipboardManager mClipboardManager;
+    private ClipboardManager  mClipboardManager;
+    private ImagesAdapter     mImagesAdapter;
+    private GridLayoutManager mGridLayoutManager;
+    private Observer<Collection<OnlinePhotoUrl>> mImagesObserver = new Observer<Collection<OnlinePhotoUrl>>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
+
+        @Override
+        public void onNext(Collection<OnlinePhotoUrl> onlinePhotoUrls) {
+            log.d("mImagesObserver onNext %s", onlinePhotoUrls);
+            if (mImagesRecyclerView != null) {
+                if (mImagesAdapter == null) {
+                    mImagesAdapter = new ImagesAdapter();
+                    mImagesRecyclerView.setAdapter(mImagesAdapter);
+                }
+                int size = onlinePhotoUrls.size();
+                int span = (int) Math.sqrt(size);
+                mGridLayoutManager.setSpanCount(span);
+                mImagesAdapter.refreshData(onlinePhotoUrls);
+            }
+
+        }
+    };
 
     @Optional
     @OnClick(android.R.id.button1)
@@ -54,6 +95,12 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
             mGenerator = PassphraseGenerators.getGenerator(mPreferredGenerator);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        }
+        if (mImagesRecyclerView != null) {
+            mImagesRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            mGridLayoutManager = new GridLayoutManager(this, 2);
+            mImagesRecyclerView.setLayoutManager(mGridLayoutManager);
+            mImagesRecyclerView.setHasFixedSize(true);
         }
     }
 
@@ -110,7 +157,6 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
 
     @Override
     public void onNext(PassPhrase passPhrase) {
-        log.d("onNext %s", passPhrase);
         if (mRecyclerView != null) {
             if (mNewPassPhraseAdapter == null) {
                 mNewPassPhraseAdapter = new NewPassPhraseAdapter()
@@ -118,6 +164,7 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
                 mRecyclerView.setAdapter(mNewPassPhraseAdapter);
             }
             mNewPassPhraseAdapter.refreshData(passPhrase);
+            ImagesRetriever.getImagesRetriever().getImagesFor(mImagesObserver, passPhrase.getWords());
         }
     }
 }

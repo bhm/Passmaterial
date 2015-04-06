@@ -20,7 +20,7 @@ import com.bustiblelemons.bustiblelibs.R;
 public class RemoteImage extends ImageView implements
                                            AsyncPaletteLoader.OnPalleteGenerated {
 
-    private static final ScaleType[] sScaleTypeArray = {
+    private static final ScaleType[] sScaleTypeArray   = {
             ScaleType.MATRIX,
             ScaleType.FIT_XY,
             ScaleType.FIT_START,
@@ -30,16 +30,16 @@ public class RemoteImage extends ImageView implements
             ScaleType.CENTER_CROP,
             ScaleType.CENTER_INSIDE
     };
-    private String addresToLoad;
-    private String failbackAddress;
-    private int noImageRes = R.drawable.lemons;
+    private              int         mNoImageRes       = R.drawable.lemons;
+    private              int         defScaleTypeIndex = 6;
+    private String    addresToLoad;
+    private String    failbackAddress;
     private Animation mAnimationIn;
     private boolean   useAnimations;
     private Palette   mPalette;
     private Bitmap    mBitmap;
     private Animation mAnimationOut;
     private int       animationOut;
-    private int defScaleTypeIndex = 6;
     private OnPaletteGenerated              mPaletteGenerated;
     private PaletteColorsGenerated          mPaletteColorsGenerated;
     private PaletteColorsGeneratedSelective mPaletteColorsGeneratedSelective;
@@ -62,7 +62,7 @@ public class RemoteImage extends ImageView implements
     private void init(Context context, AttributeSet attrs) {
         if (attrs != null) {
             TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.RemoteImage);
-            noImageRes = array.getResourceId(R.styleable.RemoteImage_no_image, R.drawable.lemons);
+            mNoImageRes = array.getResourceId(R.styleable.RemoteImage_no_image, R.drawable.lemons);
             int scaleType = array.getInt(R.styleable.RemoteImage_android_scaleType, defScaleTypeIndex);
             if (scaleType >= 0) {
                 setScaleType(sScaleTypeArray[scaleType]);
@@ -107,7 +107,10 @@ public class RemoteImage extends ImageView implements
     }
 
     private void rLoadUrl(String url) {
-        Glide.with(getContext()).load(url).into(this);
+        Glide.with(getContext())
+                .load(url)
+                .placeholder(mNoImageRes)
+                .into(this);
     }
 
     private boolean isSameUrl(String url) {
@@ -132,11 +135,11 @@ public class RemoteImage extends ImageView implements
     }
 
     public void loadDefault() {
-        setImageResource(noImageRes);
+        setImageResource(mNoImageRes);
     }
 
     public void setImageDrawable(int noImageRes) {
-        this.noImageRes = noImageRes;
+        this.mNoImageRes = noImageRes;
         loadDefault();
     }
 

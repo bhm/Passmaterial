@@ -6,4 +6,5 @@
     <item name="pass_phrase" type="id"/>
     <item name="toolbar" type="id"/>
     <item name="pass_phrase_definition" type="id"/>
+    <item name="images_recycler" type="id"/>
 </resources>
