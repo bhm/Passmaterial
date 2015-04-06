@@ -1,5 +1,7 @@
 package lemons.combustible.passmaterial.passphrases;
 
+import org.apache.commons.lang.RandomStringUtils;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -8,9 +10,28 @@ import java.util.List;
  * Created by hiv on 31.03.15.
  */
 public class PassPhrase implements IPassPhrase {
-    private List<Word> mWords;
-    private boolean    mUsePadding;
-    private boolean mUseDelimiters = true;
+    private final Delimiters       mDelimiters;
+    private       List<Word>       mWords;
+    private       boolean          mUsePadding;
+    private       boolean          mUseDelimiters;
+    private       int              mPaddingLength;
+    private       PassPhraseConfig mConfig;
+
+    public PassPhrase(PassPhraseConfig config) {
+        mUsePadding = config.getUsePadding();
+        mPaddingLength = config.getPaddingLength();
+        mUseDelimiters = config.getUseDelimiters();
+        mDelimiters = config.getDelimiters();
+    }
+
+    public int getPaddingLength() {
+        return mPaddingLength;
+    }
+
+    public PassPhrase withPaddingLenghth(int arg) {
+        mPaddingLength = arg;
+        return this;
+    }
 
     public List<Word> getWords() {
         if (mWords == null) {
@@ -42,21 +63,22 @@ public class PassPhrase implements IPassPhrase {
     @Override
     public CharSequence getText() {
         StringBuilder b = new StringBuilder();
+        String padding = RandomStringUtils.random(mPaddingLength, true, true);
         if (mUsePadding) {
-            b.append("---");
+            b.append(padding);
         }
         String delimiter = "";
         for (Word w : getWords()) {
             if (w != null) {
                 if (mUseDelimiters) {
                     b.append(delimiter);
-                    delimiter = ",";
+                    delimiter = mDelimiters.getRandomDelimiter();
                 }
                 b.append(w.getWordText());
             }
         }
         if (mUsePadding) {
-            b.append("---");
+            b.append(padding);
         }
         return b.toString();
     }

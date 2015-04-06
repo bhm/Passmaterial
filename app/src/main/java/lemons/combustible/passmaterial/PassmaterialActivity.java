@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.bustiblelemons.logging.Logger;
 import com.bustiblelemons.model.OnlinePhotoUrl;
 
+import java.io.File;
 import java.util.Collection;
 
 import butterknife.ButterKnife;
@@ -27,6 +28,7 @@ import lemons.combustible.passmaterial.google.ImagesRetriever;
 import lemons.combustible.passmaterial.passphrases.NewPassPhraseAdapter;
 import lemons.combustible.passmaterial.passphrases.OnCopyToClipBoard;
 import lemons.combustible.passmaterial.passphrases.PassPhrase;
+import lemons.combustible.passmaterial.passphrases.PassPhraseConfig;
 import lemons.combustible.passmaterial.passphrases.PassPhraseGenerator;
 import lemons.combustible.passmaterial.passphrases.generators.PassphraseGenerators;
 import lemons.combustible.passmaterial.passphrases.generators.PreferredGenerator;
@@ -53,7 +55,39 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
     private ImagesAdapter        mImagesAdapter;
     private GridLayoutManager    mGridLayoutManager;
 
-    private Observer<Collection<OnlinePhotoUrl>> mImagesObserver = new Observer<Collection<OnlinePhotoUrl>>() {
+    private Observer<Collection<OnlinePhotoUrl>> mImagesObserver =
+            new Observer<Collection<OnlinePhotoUrl>>() {
+                @Override
+                public void onCompleted() {
+
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onNext(Collection<OnlinePhotoUrl> onlinePhotoUrls) {
+                    log.d("mImagesObserver onNext %s", onlinePhotoUrls);
+                    if (mImagesRecyclerView != null) {
+                        if (mImagesAdapter == null) {
+                            mImagesAdapter = new ImagesAdapter();
+                            mImagesRecyclerView.setAdapter(mImagesAdapter);
+                        }
+                        int size = onlinePhotoUrls.size();
+                        int span = size;
+                        if (size > 3) {
+                            span = (int) Math.sqrt(size);
+                        }
+                        mGridLayoutManager.setSpanCount(span);
+                        mImagesAdapter.refreshData(onlinePhotoUrls);
+                    }
+
+                }
+            };
+    private PassPhraseConfig mPassphraseConfig;
+    private Observer<PassPhraseConfig> mConfigReadObserver = new Observer<PassPhraseConfig>() {
         @Override
         public void onCompleted() {
 
@@ -65,30 +99,18 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
         }
 
         @Override
-        public void onNext(Collection<OnlinePhotoUrl> onlinePhotoUrls) {
-            log.d("mImagesObserver onNext %s", onlinePhotoUrls);
-            if (mImagesRecyclerView != null) {
-                if (mImagesAdapter == null) {
-                    mImagesAdapter = new ImagesAdapter();
-                    mImagesRecyclerView.setAdapter(mImagesAdapter);
-                }
-                int size = onlinePhotoUrls.size();
-                int span = size;
-                if (size > 3) {
-                    span = (int) Math.sqrt(size);
-                }
-                mGridLayoutManager.setSpanCount(span);
-                mImagesAdapter.refreshData(onlinePhotoUrls);
+        public void onNext(PassPhraseConfig config) {
+            if (config != null) {
+                mPassphraseConfig = config;
+                onGenerateNewBundle();
             }
-
         }
     };
-    private int                                  mWordCount      = 3;
 
     @Optional
     @OnClick(android.R.id.button1)
     public void onGenerateNewBundle() {
-        mGenerator.generateBundleAsync(this, mWordCount);
+        mGenerator.generateBundleAsync(this, mPassphraseConfig);
     }
 
     @Override
@@ -96,7 +118,8 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passmaterial);
         ButterKnife.inject(this);
-        mWordCount = Settings.getWordCount(this, mWordCount);
+        File configFile = PassPhraseConfig.getConfigFile(this);
+        PassPhraseConfigFacade.getConfig(mConfigReadObserver, configFile);
         if (mRecyclerView != null) {
             mGenerator = PassphraseGenerators.getGenerator(mPreferredGenerator);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -107,8 +130,6 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
             mGridLayoutManager = new GridLayoutManager(this, 2);
             mImagesRecyclerView.setLayoutManager(mGridLayoutManager);
             mImagesRecyclerView.setHasFixedSize(true);
-//            mImagesAdapter = new ImagesAdapter();
-//            mImagesAdapter.refreshData(new ArrayList<OnlinePhotoUrl>(4));
         }
     }
 

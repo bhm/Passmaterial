@@ -2,7 +2,6 @@ package lemons.combustible.passmaterial.passphrases;
 
 import android.view.View;
 
-import com.bustiblelemons.logging.Logger;
 import com.bustiblelemons.recycler.AbsRecyclerAdapter;
 import com.bustiblelemons.recycler.AbsRecyclerHolder;
 
@@ -15,7 +14,6 @@ public class NewPassPhraseAdapter
         extends AbsRecyclerAdapter<PassPhrase, AbsRecyclerHolder<PassPhrase>> {
 
 
-    private static final Logger log = new Logger(NewPassPhraseAdapter.class);
     private OnCopyToClipBoard mOnCopyToClipBoard;
 
     @Override

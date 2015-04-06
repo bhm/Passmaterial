@@ -17,6 +17,7 @@
         android:layout_below="@id/fab_pivot"
         android:layout_marginTop="@dimen/fab_offset_positive">
 
+
         <TextView
             android:id="@android:id/title"
             android:layout_width="match_parent"
@@ -25,6 +26,72 @@
             android:text="@string/placeholder_title"
             android:textColor="@color/primary_text"
             android:textSize="@dimen/material_headline"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@android:id/title"
+            android:paddingLeft="@dimen/padding_16"
+            android:paddingRight="@dimen/padding_16">
+
+            <View
+                style="@style/inset_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <com.rey.material.widget.Switch
+                android:id="@id/use_delimiters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/use_delimiters_title"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@id/use_delimiters_title"
+                android:gravity="center|left"
+                android:padding="@dimen/padding_8"
+                android:paddingLeft="@dimen/padding_16"
+                android:paddingRight="@dimen/padding_16"
+                android:text="Foo"/>
+
+            <TextView
+                android:id="@id/use_delimiters_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@android:id/title"
+                android:layout_toRightOf="@id/use_delimiters"
+                android:paddingBottom="@dimen/padding_16"
+                android:paddingTop="@dimen/padding_16"
+                android:text="@string/use_delimiters"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/material_body_2"/>
+
+            <com.rey.material.widget.Switch
+                android:id="@id/use_padding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/use_padding_title"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@id/use_padding_title"
+                android:gravity="center|left"
+                android:padding="@dimen/padding_8"
+                android:paddingLeft="@dimen/padding_16"
+                android:paddingRight="@dimen/padding_16"
+                android:text="Foo"/>
+
+            <TextView
+                android:id="@id/use_padding_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/use_delimiters_title"
+                android:layout_toRightOf="@id/use_delimiters"
+                android:paddingBottom="@dimen/padding_16"
+                android:paddingTop="@dimen/padding_16"
+                android:text="@string/use_padding"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/material_body_2"/>
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <com.rey.material.widget.FloatingActionButton

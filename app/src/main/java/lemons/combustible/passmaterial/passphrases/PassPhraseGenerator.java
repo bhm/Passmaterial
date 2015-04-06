@@ -9,7 +9,7 @@ import rx.Subscription;
 public interface PassPhraseGenerator {
     PassphraseBundle generatePassphraseBundle(int seed);
 
-    void generateBundleAsync(Observer<? super PassPhrase> observer, int wordCount);
+    void generateBundleAsync(Observer<? super PassPhrase> observer, PassPhraseConfig config);
 
     Subscription getDefinition(Observer<? super Word> observer, Word phrase);
 

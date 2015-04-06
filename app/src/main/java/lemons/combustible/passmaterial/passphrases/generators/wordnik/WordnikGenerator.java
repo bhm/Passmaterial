@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import lemons.combustible.passmaterial.passphrases.PassPhrase;
+import lemons.combustible.passmaterial.passphrases.PassPhraseConfig;
 import lemons.combustible.passmaterial.passphrases.PassPhraseGenerator;
 import lemons.combustible.passmaterial.passphrases.PassphraseBundle;
 import lemons.combustible.passmaterial.passphrases.Word;
@@ -39,8 +40,8 @@ public class WordnikGenerator implements PassPhraseGenerator {
     }
 
     @Override
-    public void generateBundleAsync(Observer<? super PassPhrase> observer, int wordCount) {
-        mSub = Observable.create(getPassPhraseFromWordnik(wordCount))
+    public void generateBundleAsync(Observer<? super PassPhrase> observer, PassPhraseConfig config) {
+        mSub = Observable.create(getPassPhraseFromWordnik(config))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -103,15 +104,15 @@ public class WordnikGenerator implements PassPhraseGenerator {
         }
     }
 
-    public Observable.OnSubscribe<PassPhrase> getPassPhraseFromWordnik(final int wordCount) {
+    public Observable.OnSubscribe<PassPhrase> getPassPhraseFromWordnik(final PassPhraseConfig config) {
         return new Observable.OnSubscribe<PassPhrase>() {
             @Override
             public void call(Subscriber<? super PassPhrase> subscriber) {
                 try {
                     WordnikRandomWordsQuery q = new WordnikRandomWordsQuery();
-                    q.withLimit(wordCount);
+                    q.withLimit(config.getMaxWordCount());
                     List<WordnikWord> object = q.getObjectCollection(WordnikWord.class);
-                    PassPhrase phrase = new PassPhrase();
+                    PassPhrase phrase = new PassPhrase(config);
                     phrase.addWords(object);
                     subscriber.onNext(phrase);
                 } catch (IOException e) {

@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/images_recycler"
         android:layout_alignTop="@id/images_recycler"
+
         android:background="@drawable/scrim"/>
 
     <android.support.v7.widget.RecyclerView
@@ -32,6 +33,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/primary"
         android:gravity="center"
+        android:padding="@dimen/padding_8"
         android:text="@string/get_new_passphrase"
         android:textAllCaps="true"
         android:textColor="@color/white_87"
