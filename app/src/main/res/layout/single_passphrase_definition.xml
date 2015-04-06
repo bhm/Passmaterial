@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    style="@style/card_seam"
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@android:id/title"
+    <RelativeLayout
+        style="@style/card_seam"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/padding_16"
-        android:textColor="@color/secondary_text"
-        android:textSize="@dimen/material_body_1"
-        tools:text="@string/placeholder_title"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@android:id/primary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@android:id/title"
-        android:paddingBottom="@dimen/padding_16"
-        android:paddingLeft="@dimen/padding_20"
-        android:paddingRight="@dimen/padding_20"
-        android:textColor="@color/primary_text"
-        android:textSize="@dimen/material_body_2"
-        tools:text="@string/placeholder_description"/>
+        <TextView
+            android:id="@android:id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_16"
+            android:textColor="@color/secondary_text"
+            android:textSize="@dimen/material_body_1"
+            tools:text="@string/placeholder_title"/>
 
-</RelativeLayout>
+        <TextView
+            android:id="@android:id/primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@android:id/title"
+            android:paddingBottom="@dimen/padding_16"
+            android:paddingLeft="@dimen/padding_20"
+            android:paddingRight="@dimen/padding_20"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/material_body_2"
+            tools:text="@string/placeholder_description"/>
+
+    </RelativeLayout>
+</FrameLayout>

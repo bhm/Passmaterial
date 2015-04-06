@@ -19,8 +19,8 @@
 
     <style name="card_seam">
         <item name="android:background">@drawable/card_selector</item>
-        <item name="android:layout_marginLeft">@dimen/padding_8</item>
-        <item name="android:layout_marginRight">@dimen/padding_8</item>
+        <item name="android:paddingLeft">@dimen/padding_8</item>
+        <item name="android:paddingRight">@dimen/padding_8</item>
     </style>
 
     <!-- Application theme. -->
