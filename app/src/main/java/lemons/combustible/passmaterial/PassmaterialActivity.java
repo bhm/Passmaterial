@@ -146,10 +146,10 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
     public void onCopyToClipboard(CharSequence passphrase) {
         if (mClipboardManager == null) {
             mClipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText(getString(R.string.clipboard_label), passphrase);
-            mClipboardManager.setPrimaryClip(clip);
-            Toast.makeText(this, R.string.copied_to_clirboard, Toast.LENGTH_LONG).show();
         }
+        ClipData clip = ClipData.newPlainText(getString(R.string.clipboard_label), passphrase);
+        mClipboardManager.setPrimaryClip(clip);
+        Toast.makeText(this, R.string.copied_to_clirboard, Toast.LENGTH_LONG).show();
     }
 
 
