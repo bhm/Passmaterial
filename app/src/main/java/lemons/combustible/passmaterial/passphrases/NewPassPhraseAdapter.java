@@ -5,7 +5,10 @@ import android.view.View;
 import com.bustiblelemons.recycler.AbsRecyclerAdapter;
 import com.bustiblelemons.recycler.AbsRecyclerHolder;
 
+import java.util.List;
+
 import lemons.combustible.passmaterial.R;
+import lemons.combustible.passmaterial.passphrases.settings.OnOpenSettings;
 
 /**
  * Created by hiv on 31.03.15.
@@ -15,10 +18,35 @@ public class NewPassPhraseAdapter
 
 
     private OnCopyToClipBoard mOnCopyToClipBoard;
+    private OnOpenSettings mOnOpenSettings;
+
+    private boolean mShowAllWords;
+
+    public boolean getShowAllWords() {
+        return mShowAllWords;
+    }
+
+    public NewPassPhraseAdapter withShowAllWords(boolean arg) {
+        mShowAllWords = arg;
+        return this;
+    }
+
+    public OnOpenSettings getOnOpenSettings() {
+        return mOnOpenSettings;
+    }
+
+    public NewPassPhraseAdapter withOnOpenSettings(OnOpenSettings arg) {
+        mOnOpenSettings = arg;
+        return this;
+    }
 
     @Override
     public int getItemCount() {
-        return getData().get(0).getWords().size() + 2;
+        if (getData().get(0) != null) {
+            List<Word> words = getData().get(0).getWords(mShowAllWords);
+            return words.size() + 2;
+        }
+        return 0;
     }
 
     @Override
@@ -52,7 +80,8 @@ public class NewPassPhraseAdapter
             return new PeekThroughHolder(view);
         } else if (viewType == R.id.pass_phrase) {
 
-            return new PassPhraseCell(view, mOnCopyToClipBoard);
+            return new PassPhraseCell(view, mOnCopyToClipBoard)
+                    .withOpenSettingsCallback(mOnOpenSettings);
         }
         return new PassPhraseDefinition(view);
     }

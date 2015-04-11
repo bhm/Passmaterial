@@ -32,12 +32,16 @@ public class PassPhraseCell extends AbsRecyclerHolder<PassPhrase> implements
 
     private OnCopyToClipBoard mOnCopyToClipBoard;
     private PassPhrase     mItem;
-    private OnOpenSettings mOnOpenSettings;
+    private OnOpenSettings mOpenSettingsCallback;
 
     public PassPhraseCell(View view, OnCopyToClipBoard onCopyToClipBoard) {
         super(view);
         mUsePaddingCheckbox = (Switch) view.findViewById(R.id.use_padding);
-        mUsePaddingCheckbox = (Switch) view.findViewById(R.id.use_delimiters);
+        mUseDelimitersCheckbox = (Switch) view.findViewById(R.id.use_delimiters);
+        View openSettings = view.findViewById(R.id.quick_settings);
+        if (openSettings != null) {
+            openSettings.setOnClickListener(this);
+        }
         mOnCopyToClipBoard = onCopyToClipBoard;
         if (mUsePaddingCheckbox != null) {
             mUsePaddingCheckbox.setOnClickListener(this);
@@ -47,11 +51,20 @@ public class PassPhraseCell extends AbsRecyclerHolder<PassPhrase> implements
         }
     }
 
+    public OnOpenSettings getOpenSettingsCallback() {
+        return mOpenSettingsCallback;
+    }
+
+    public PassPhraseCell withOpenSettingsCallback(OnOpenSettings arg) {
+        mOpenSettingsCallback = arg;
+        return this;
+    }
+
     //    @Optional
 //    @OnClick(R.id.action_settings)
     void onOpenSettings() {
-        if (mOnOpenSettings != null) {
-            mOnOpenSettings.onOpenSettings();
+        if (mOpenSettingsCallback != null) {
+            mOpenSettingsCallback.onOpenSettings();
         }
     }
 
@@ -69,6 +82,22 @@ public class PassPhraseCell extends AbsRecyclerHolder<PassPhrase> implements
         if (item != null) {
             mItem = item;
             setText(item);
+            boolean usePadding = item.isUsePadding();
+            boolean useDelimiters = item.isUseDelimiters();
+            setUsePadding(usePadding);
+            setUseDelimiters(useDelimiters);
+        }
+    }
+
+    private void setUsePadding(boolean usePadding) {
+        if (mUsePaddingCheckbox != null) {
+            mUsePaddingCheckbox.setChecked(usePadding);
+        }
+    }
+
+    private void setUseDelimiters(boolean useDelimiters) {
+        if (mUseDelimitersCheckbox != null) {
+            mUseDelimitersCheckbox.setChecked(useDelimiters);
         }
     }
 
@@ -90,6 +119,8 @@ public class PassPhraseCell extends AbsRecyclerHolder<PassPhrase> implements
                 mItem.setUseDelimiters(isChecked);
             }
             setText(mItem);
+        } else if (R.id.quick_settings == v.getId()) {
+//            onOpenSettings();
         }
     }
 }

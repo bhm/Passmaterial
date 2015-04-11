@@ -11,4 +11,5 @@
     <item name="use_delimiters" type="id"/>
     <item name="use_delimiters_title" type="id"/>
     <item name="use_padding_title" type="id"/>
+    <item name="delimiter_padding" type="id"/>
 </resources>

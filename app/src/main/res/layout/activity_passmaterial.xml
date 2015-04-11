@@ -40,6 +40,7 @@
         android:textAllCaps="true"
         android:textColor="@color/white_87"
         android:textSize="@dimen/abc_text_size_button_material"
-        app:ripple="@style/RaiseColorButtonRippleStyle"/>
+        app:delayClick="false"
+        app:ripple="@style/NewPassPhrase"/>
 
 </RelativeLayout>

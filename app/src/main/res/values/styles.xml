@@ -54,6 +54,32 @@
         <item name="delayClick">false</item>
     </style>
 
+    <style name="NewPassPhrase" parent="Material.Drawable.Ripple.Touch.Light">
+        <item name="rd_background">@color/primary</item>
+        <item name="rd_rippleColor">@color/accent</item>
+        <item name="rd_leftPadding">1dp</item>
+        <item name="rd_topPadding">1dp</item>
+        <item name="rd_rightPadding">1dp</item>
+        <item name="rd_bottomPadding">2dp</item>
+        <item name="delayClick">false</item>
+    </style>
+
+    <style name="QuickSettings" parent="Material.Drawable.Ripple.Touch.Light">
+        <item name="rd_background">@color/transparent</item>
+        <item name="rd_rippleColor">@color/accent</item>
+        <item name="rd_leftPadding">1dp</item>
+        <item name="rd_topPadding">1dp</item>
+        <item name="rd_rightPadding">1dp</item>
+        <item name="rd_bottomPadding">2dp</item>
+        <item name="delayClick">false</item>
+    </style>
+
+    <style name="SwitchThumb" parent="@style/Material.Widget.Switch">
+        <item name="sw_trackColor">@color/primary_light</item>
+        <item name="sw_thumbColor">@color/primary_dark</item>
+    </style>
+
+
     <style name="RaiseWaveColorButtonRippleStyle" parent="Material.Drawable.Ripple.Wave.Light">
         <item name="rd_rippleColor">@color/accent</item>
         <item name="rd_leftPadding">1dp</item>

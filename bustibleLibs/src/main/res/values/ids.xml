@@ -43,4 +43,5 @@
     <item name="secondary_list" type="id"/>
     <item name="statistic_view_value" type="id"/>
     <item name="card_content" type="id"/>
+    <item name="quick_settings" type="id"/>
 </resources>

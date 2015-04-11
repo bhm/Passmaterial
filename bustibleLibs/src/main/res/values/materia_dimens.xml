@@ -9,4 +9,5 @@
     <dimen name="material_subhead">16sp</dimen>
     <dimen name="material_body_2">14sp</dimen>
     <dimen name="material_body_1">12sp</dimen>
+    <dimen name="padding_12">12dp</dimen>
 </resources>

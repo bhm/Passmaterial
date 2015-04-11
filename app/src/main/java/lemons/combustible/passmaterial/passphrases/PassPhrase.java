@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class PassPhrase implements IPassPhrase {
     private final Delimiters mDelimiters;
-    private final int        mWordCount;
+    private final int mWordCountToUse;
     private       List<Word> mWords;
     private       boolean    mUsePadding;
     private       boolean    mUseDelimiters;
@@ -23,11 +23,11 @@ public class PassPhrase implements IPassPhrase {
         mPaddingLength = config.getPaddingLength();
         mUseDelimiters = config.getUseDelimiters();
         mDelimiters = config.getDelimiters();
-        mWordCount = config.getWordCount();
+        mWordCountToUse = config.getWordCount();
     }
 
-    public int getWordCount() {
-        return mWordCount;
+    public int getWordCountToUse() {
+        return mWordCountToUse;
     }
 
     public int getPaddingLength() {
@@ -37,6 +37,19 @@ public class PassPhrase implements IPassPhrase {
     public PassPhrase withPaddingLenghth(int arg) {
         mPaddingLength = arg;
         return this;
+    }
+
+    public List<Word> getWordsToUse() {
+        if (mWords == null) {
+            return mWords = new ArrayList<Word>();
+        }
+        if (mWordCountToUse == 0 || mWordCountToUse >= mWords.size()) {
+            return mWords;
+        }
+        if (mWords.size() > 0 && mWords.size() > mWordCountToUse) {
+            return mWords.subList(0, mWordCountToUse);
+        }
+        return mWords;
     }
 
     public List<Word> getWords() {
@@ -94,7 +107,7 @@ public class PassPhrase implements IPassPhrase {
                     }
                 }
                 counter++;
-                if (counter >= getWordCount()) {
+                if (counter >= getWordCountToUse()) {
                     break;
                 }
             }
@@ -127,5 +140,9 @@ public class PassPhrase implements IPassPhrase {
                 ", mUsePadding=" + mUsePadding +
                 ", mUseDelimiters=" + mUseDelimiters +
                 '}';
+    }
+
+    public List<Word> getWords(boolean showAllWords) {
+        return showAllWords ? getWords() : getWordsToUse();
     }
 }

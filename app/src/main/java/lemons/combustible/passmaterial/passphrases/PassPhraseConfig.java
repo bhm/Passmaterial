@@ -31,6 +31,9 @@ public class PassPhraseConfig implements Serializable {
     private int        mMaxWordCount;
     @JsonProperty("padding_length")
     private int        mPaddingLength;
+    @JsonProperty("show_all_words")
+
+    private boolean    mShowAllWords;
 
     public PassPhraseConfig() {
         mWordCount = DEFAULT_WORD_COUNT;
@@ -46,6 +49,11 @@ public class PassPhraseConfig implements Serializable {
         String filename = PassPhraseConfig.class.getSimpleName().concat(".json");
         File rootDir = context.getCacheDir();
         return new File(rootDir, filename);
+    }
+
+    @JsonProperty("padding_length")
+    public void setShowAllWords(boolean showAllWords) {
+        mShowAllWords = showAllWords;
     }
 
     @JsonProperty("max_word_count")
@@ -158,5 +166,10 @@ public class PassPhraseConfig implements Serializable {
     public PassPhraseConfig withDelimiters(Delimiters arg) {
         mDelimiters = arg;
         return this;
+    }
+
+    @JsonProperty("padding_length")
+    public boolean showAllWords() {
+        return mShowAllWords;
     }
 }

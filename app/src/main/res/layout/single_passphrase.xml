@@ -22,6 +22,8 @@
             android:id="@android:id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_12"
+            android:layout_toLeftOf="@id/action_settings"
             android:padding="@dimen/padding_16"
             android:text="@string/placeholder_title"
             android:textColor="@color/primary_text"
@@ -31,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@android:id/title"
+            android:layout_marginBottom="@dimen/padding_8"
             android:paddingLeft="@dimen/padding_16"
             android:paddingRight="@dimen/padding_16">
 
@@ -39,57 +42,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
 
-            <com.rey.material.widget.Switch
-                android:id="@id/use_delimiters"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/use_delimiters_title"
-                android:layout_alignParentRight="true"
-                android:layout_alignTop="@id/use_delimiters_title"
-                android:gravity="center|left"
-                android:padding="@dimen/padding_8"
-                android:paddingLeft="@dimen/padding_16"
-                android:paddingRight="@dimen/padding_16"
-                android:text="Foo"/>
+            <include
+                android:id="@id/delimiter_padding"
+                layout="@layout/settings_padding_delimiters"/>
 
-            <TextView
-                android:id="@id/use_delimiters_title"
+            <com.rey.material.widget.Button
+                android:id="@id/quick_settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@android:id/title"
-                android:layout_toRightOf="@id/use_delimiters"
+                android:layout_below="@id/delimiter_padding"
+                android:background="@color/transparent"
                 android:paddingBottom="@dimen/padding_16"
                 android:paddingTop="@dimen/padding_16"
-                android:text="@string/use_delimiters"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/material_body_2"/>
-
-            <com.rey.material.widget.Switch
-                android:id="@id/use_padding"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/use_padding_title"
-                android:layout_alignParentRight="true"
-                android:layout_alignTop="@id/use_padding_title"
-                android:gravity="center|left"
-                android:padding="@dimen/padding_8"
-                android:paddingLeft="@dimen/padding_16"
-                android:paddingRight="@dimen/padding_16"
-                android:text="Foo"/>
-
-            <TextView
-                android:id="@id/use_padding_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@id/use_delimiters_title"
-                android:layout_toRightOf="@id/use_delimiters"
-                android:paddingBottom="@dimen/padding_16"
-                android:paddingTop="@dimen/padding_16"
-                android:text="@string/use_padding"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/material_body_2"/>
+                android:text="@string/settings"
+                android:textColor="@color/primary_dark"
+                android:textSize="@dimen/material_body_2"
+                app:ripple="@style/QuickSettings"/>
         </RelativeLayout>
 
     </RelativeLayout>
@@ -106,6 +74,7 @@
         android:layout_marginRight="@dimen/padding_16"
         app:fab_backgroundColor="@color/accent"
         app:fab_iconSize="@dimen/fab_icon_size"
-        app:fab_iconSrc="@drawable/ic_content_content_copy"/>
+        app:fab_iconSrc="@drawable/ic_content_content_copy"
+        app:ripple="@style/FloatingActionButton"/>
 
 </RelativeLayout>

@@ -32,11 +32,12 @@ import lemons.combustible.passmaterial.passphrases.PassPhraseConfig;
 import lemons.combustible.passmaterial.passphrases.PassPhraseGenerator;
 import lemons.combustible.passmaterial.passphrases.generators.PassphraseGenerators;
 import lemons.combustible.passmaterial.passphrases.generators.PreferredGenerator;
+import lemons.combustible.passmaterial.passphrases.settings.OnOpenSettings;
 import rx.Observer;
 
 
 public class PassmaterialActivity extends ActionBarActivity implements OnCopyToClipBoard,
-                                                                       Observer<PassPhrase> {
+                                                                       OnOpenSettings {
 
     private static final Logger log = new Logger(PassmaterialActivity.class);
     @Optional
@@ -87,6 +88,33 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
                 }
             };
     private PassPhraseConfig mPassphraseConfig;
+    private Observer<? super PassPhrase> mPassphrasesGenerated = new Observer<PassPhrase>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
+
+        @Override
+        public void onNext(PassPhrase passPhrase) {
+            if (mRecyclerView != null) {
+                if (mNewPassPhraseAdapter == null) {
+                    mNewPassPhraseAdapter = new NewPassPhraseAdapter()
+                            .withOnCopyToClipboard(PassmaterialActivity.this)
+                            .withOnOpenSettings(PassmaterialActivity.this);
+                    mRecyclerView.setAdapter(mNewPassPhraseAdapter);
+                }
+                mNewPassPhraseAdapter.refreshData(passPhrase);
+                mNewPassPhraseAdapter.withShowAllWords(mPassphraseConfig.showAllWords());
+                ImagesRetriever.getImagesRetriever().getImagesFor(mImagesObserver, passPhrase.getWords());
+            }
+        }
+    };
+
     private Observer<PassPhraseConfig> mConfigReadObserver = new Observer<PassPhraseConfig>() {
         @Override
         public void onCompleted() {
@@ -106,11 +134,31 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
             }
         }
     };
+    private File mConfigFile;
+    private Observer<PassPhraseConfig> mReadConfigAndOpenSettings = new Observer<PassPhraseConfig>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
+
+        @Override
+        public void onNext(PassPhraseConfig config) {
+            if (config != null) {
+                mPassphraseConfig = config;
+                openSettings(mPassphraseConfig);
+            }
+        }
+    };
 
     @Optional
     @OnClick(android.R.id.button1)
     public void onGenerateNewBundle() {
-        mGenerator.generateBundleAsync(this, mPassphraseConfig);
+        mGenerator.generateBundleAsync(mPassphrasesGenerated, mPassphraseConfig);
     }
 
     @Override
@@ -118,8 +166,8 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passmaterial);
         ButterKnife.inject(this);
-        File configFile = PassPhraseConfig.getConfigFile(this);
-        PassPhraseConfigFacade.getConfig(mConfigReadObserver, configFile);
+        mConfigFile = PassPhraseConfig.getConfigFile(this);
+        PassPhraseConfigFacade.getConfig(mConfigReadObserver, mConfigFile);
         if (mRecyclerView != null) {
             mGenerator = PassphraseGenerators.getGenerator(mPreferredGenerator);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -151,7 +199,6 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -173,27 +220,20 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
         Toast.makeText(this, R.string.copied_to_clirboard, Toast.LENGTH_LONG).show();
     }
 
-
     @Override
-    public void onCompleted() {
-
-    }
-
-    @Override
-    public void onError(Throwable e) {
-
-    }
-
-    @Override
-    public void onNext(PassPhrase passPhrase) {
-        if (mRecyclerView != null) {
-            if (mNewPassPhraseAdapter == null) {
-                mNewPassPhraseAdapter = new NewPassPhraseAdapter()
-                        .withOnCopyToClipboard(this);
-                mRecyclerView.setAdapter(mNewPassPhraseAdapter);
+    public void onOpenSettings() {
+        if (mPassphraseConfig != null) {
+            openSettings(mPassphraseConfig);
+        } else {
+            if (mConfigFile == null) {
+                mConfigFile = PassPhraseConfig.getConfigFile(this);
             }
-            mNewPassPhraseAdapter.refreshData(passPhrase);
-            ImagesRetriever.getImagesRetriever().getImagesFor(mImagesObserver, passPhrase.getWords());
+            PassPhraseConfigFacade.getConfig(mReadConfigAndOpenSettings, mConfigFile);
         }
+    }
+
+    private void openSettings(PassPhraseConfig config) {
+        SettingsDialog dialog = SettingsDialog.newInstance(config);
+        dialog.show(getSupportFragmentManager(), SettingsDialog.TAG);
     }
 }
