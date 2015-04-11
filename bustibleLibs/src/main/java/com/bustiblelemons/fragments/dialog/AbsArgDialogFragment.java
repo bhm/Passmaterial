@@ -50,7 +50,7 @@ public abstract class AbsArgDialogFragment<A extends Serializable> extends Dialo
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
-        if (hasTitle()) {
+        if (!hasTitle()) {
             dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         }
         return dialog;
