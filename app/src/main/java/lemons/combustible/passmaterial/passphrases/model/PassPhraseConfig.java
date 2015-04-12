@@ -1,4 +1,4 @@
-package lemons.combustible.passmaterial.passphrases;
+package lemons.combustible.passmaterial.passphrases.model;
 
 import android.content.Context;
 
@@ -10,6 +10,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import lemons.combustible.passmaterial.passphrases.Delimiters;
+import lemons.combustible.passmaterial.passphrases.Word;
+
 /**
  * Created by hiv on 06.04.15.
  */
@@ -17,6 +20,7 @@ public class PassPhraseConfig implements Serializable {
     public static final  int DEFAULT_MAX_WORD_COUNT = 10;
     public static final  int DEFAULT_WORD_COUNT     = 4;
     private static final int DEFAULT_PADDING_LENGTH = 3;
+    private static boolean sInited;
     @JsonProperty("use_padding")
     private boolean    mUsePadding;
     @JsonProperty("use_delimiters")
@@ -32,8 +36,11 @@ public class PassPhraseConfig implements Serializable {
     @JsonProperty("padding_length")
     private int        mPaddingLength;
     @JsonProperty("show_all_words")
-
     private boolean    mShowAllWords;
+    @JsonProperty("use_numbers_in_padding")
+    private        boolean mUseNumbersInPadding;
+    @JsonProperty("use_letters_in_padding")
+    private        boolean mUseLettersInPadding;
 
     public PassPhraseConfig() {
         mWordCount = DEFAULT_WORD_COUNT;
@@ -43,6 +50,23 @@ public class PassPhraseConfig implements Serializable {
         mUsePadding = true;
         mWords = new ArrayList<Word>(0);
         mDelimiters = Delimiters.DEFAULT;
+    }
+
+    public static final PassPhraseConfig getPassPhraseConfig() {
+        return LazyPassPhraseConfigHolder.INSTANCE;
+    }
+
+    public static boolean isInited() {
+        return sInited;
+    }
+
+    public static void setInited(boolean inited) {
+        sInited = inited;
+    }
+
+    public static void init(PassPhraseConfig config) {
+        LazyPassPhraseConfigHolder.INSTANCE = config;
+        LazyPassPhraseConfigHolder.INSTANCE.setInited(true);
     }
 
     public static File getConfigFile(Context context) {
@@ -171,5 +195,29 @@ public class PassPhraseConfig implements Serializable {
     @JsonProperty("padding_length")
     public boolean showAllWords() {
         return mShowAllWords;
+    }
+
+    @JsonProperty("use_numbers_in_padding")
+    public boolean isUseNumbersInPadding() {
+        return mUseNumbersInPadding;
+    }
+
+    @JsonProperty("use_numbers_in_padding")
+    public void setUseNumbersInPadding(boolean useNumbersInPadding) {
+        mUseNumbersInPadding = useNumbersInPadding;
+    }
+
+    @JsonProperty("use_letters_in_padding")
+    public boolean isUseLettersInPadding() {
+        return mUseLettersInPadding;
+    }
+
+    @JsonProperty("use_letters_in_padding")
+    public void setUseLettersInPadding(boolean useLettersInPadding) {
+        mUseLettersInPadding = useLettersInPadding;
+    }
+
+    private static final class LazyPassPhraseConfigHolder {
+        private static PassPhraseConfig INSTANCE = new PassPhraseConfig();
     }
 }

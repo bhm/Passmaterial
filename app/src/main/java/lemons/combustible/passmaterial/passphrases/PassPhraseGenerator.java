@@ -1,5 +1,7 @@
 package lemons.combustible.passmaterial.passphrases;
 
+import lemons.combustible.passmaterial.passphrases.model.PassPhrase;
+import lemons.combustible.passmaterial.passphrases.model.PassPhraseConfig;
 import rx.Observer;
 import rx.Subscription;
 

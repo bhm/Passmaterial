@@ -44,4 +44,5 @@
     <item name="statistic_view_value" type="id"/>
     <item name="card_content" type="id"/>
     <item name="quick_settings" type="id"/>
+    <item name="divider1" type="id"/>
 </resources>

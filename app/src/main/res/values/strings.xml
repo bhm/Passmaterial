@@ -8,4 +8,10 @@
     <string name="copied_to_clirboard">Copied to clipboard</string>
     <string name="use_delimiters">Delimiters</string>
     <string name="use_padding">Padding</string>
+    <string name="max_words">out of </string>
+    <string name="min_words">Generate words </string>
+    <string name="padding_letters">Letters</string>
+    <string name="padding_numbers">Numbers</string>
+    <string name="done">Done</string>
+    <string name="max_words_format">Generate %1$s</string>
 </resources>

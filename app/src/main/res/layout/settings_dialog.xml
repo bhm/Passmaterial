@@ -1,12 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     style="@style/card"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding_16">
 
-    <include
-        android:id="@id/delimiter_padding"
-        layout="@layout/settings_padding_delimiters"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</RelativeLayout>
+        <RelativeLayout
+            android:id="@android:id/custom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_10">
+
+            <include
+                android:id="@id/delimiter_padding"
+                layout="@layout/settings_padding_delimiters"/>
+
+            <View
+                android:id="@id/divider1"
+                style="@style/inset_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/delimiter_padding"/>
+
+            <TextView
+                android:id="@id/max_words_title"
+                style="@style/Title.Settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/divider1"
+                android:text="@string/min_words"/>
+
+            <com.rey.material.widget.Slider
+                android:id="@id/max_words"
+                style="@style/slider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/max_words_title"
+                app:sl_maxValue="@integer/max_words"
+                app:sl_minValue="@integer/min_words"/>
+        </RelativeLayout>
+
+        <com.rey.material.widget.Button
+            android:id="@android:id/closeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@android:id/custom"
+            android:layout_marginBottom="@dimen/padding_8"
+            android:layout_marginLeft="@dimen/padding_8"
+            android:layout_marginRight="@dimen/padding_8"
+            android:background="@color/primary"
+            android:gravity="center"
+            android:text="@string/done"
+            android:textAllCaps="true"
+            android:textColor="@color/white_87"
+            android:textSize="@dimen/abc_text_size_button_material"
+            app:delayClick="false"
+            app:ripple="@style/NewPassPhrase"/>
+    </RelativeLayout>
+</ScrollView>

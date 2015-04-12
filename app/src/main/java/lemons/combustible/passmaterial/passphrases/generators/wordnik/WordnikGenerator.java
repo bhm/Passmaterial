@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import lemons.combustible.passmaterial.passphrases.PassPhrase;
-import lemons.combustible.passmaterial.passphrases.PassPhraseConfig;
 import lemons.combustible.passmaterial.passphrases.PassPhraseGenerator;
 import lemons.combustible.passmaterial.passphrases.PassphraseBundle;
 import lemons.combustible.passmaterial.passphrases.Word;
+import lemons.combustible.passmaterial.passphrases.model.PassPhrase;
+import lemons.combustible.passmaterial.passphrases.model.PassPhraseConfig;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;

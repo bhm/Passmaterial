@@ -74,6 +74,12 @@
         <item name="delayClick">false</item>
     </style>
 
+    <style name="Subhead">
+        <item name="android:textSize">@dimen/material_subhead</item>
+        <item name="android:textColor">@color/secondary_text</item>
+        <item name="android:gravity">center|left</item>
+    </style>
+
     <style name="SwitchThumb" parent="@style/Material.Widget.Switch">
         <item name="sw_trackColor">@color/primary_light</item>
         <item name="sw_thumbColor">@color/primary_dark</item>
@@ -144,6 +150,25 @@
 
     <style name="FloatingActionButtonIcon.Light" parent="FloatingActionButtonIcon">
         <item name="lmd_strokeColor">#FF000000</item>
+    </style>
+
+    <style name="Title">
+        <item name="android:textSize">@dimen/material_title</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:gravity">center|left</item>
+    </style>
+
+    <style name="Title.Settings">
+        <item name="android:textSize">@dimen/material_subhead</item>
+        <item name="android:paddingBottom">@dimen/padding_16</item>
+        <item name="android:paddingTop">@dimen/padding_16</item>
+        <item name="android:paddingLeft">@dimen/padding_0</item>
+        <item name="android:paddingRight">@dimen/padding_0</item>
+    </style>
+
+    <style name="slider" parent="Material.Widget.Slider">
+        <item name="sl_primaryColor">@color/primary_dark</item>
+        <item name="sl_secondaryColor">@color/primary_dark</item>
     </style>
 
 </resources>

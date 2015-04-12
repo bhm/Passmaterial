@@ -1,4 +1,4 @@
-package lemons.combustible.passmaterial;
+package lemons.combustible.passmaterial.settings;
 
 import android.content.Context;
 

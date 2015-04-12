@@ -1,4 +1,4 @@
-package lemons.combustible.passmaterial.passphrases;
+package lemons.combustible.passmaterial.passphrases.model;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.WordUtils;
@@ -7,23 +7,35 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import lemons.combustible.passmaterial.passphrases.Delimiters;
+import lemons.combustible.passmaterial.passphrases.IPassPhrase;
+import lemons.combustible.passmaterial.passphrases.Word;
+
 /**
  * Created by hiv on 31.03.15.
  */
 public class PassPhrase implements IPassPhrase {
-    private final Delimiters mDelimiters;
-    private final int mWordCountToUse;
-    private       List<Word> mWords;
-    private       boolean    mUsePadding;
-    private       boolean    mUseDelimiters;
-    private       int        mPaddingLength;
+    private Delimiters mDelimiters;
+    private int        mWordCountToUse;
+    private List<Word> mWords;
+    private boolean    mUsePadding;
+    private boolean    mUseDelimiters;
+    private int        mPaddingLength;
+    private boolean    mUseLetters;
+    private boolean    mUseNumbers;
 
     public PassPhrase(PassPhraseConfig config) {
+        useConfig(config);
+    }
+
+    public void useConfig(PassPhraseConfig config) {
         mUsePadding = config.getUsePadding();
         mPaddingLength = config.getPaddingLength();
         mUseDelimiters = config.getUseDelimiters();
         mDelimiters = config.getDelimiters();
         mWordCountToUse = config.getWordCount();
+        mUseNumbers = config.isUseNumbersInPadding();
+        mUseLetters = config.isUseNumbersInPadding();
     }
 
     public int getWordCountToUse() {
@@ -82,7 +94,7 @@ public class PassPhrase implements IPassPhrase {
     @Override
     public CharSequence getText() {
         StringBuilder b = new StringBuilder();
-        String padding = RandomStringUtils.random(mPaddingLength, true, true);
+        String padding = RandomStringUtils.random(mPaddingLength, mUseLetters, mUseNumbers);
         String paddingDelimiter = mDelimiters.getRandomDelimiter();
         if (mUsePadding) {
             b.append(padding);

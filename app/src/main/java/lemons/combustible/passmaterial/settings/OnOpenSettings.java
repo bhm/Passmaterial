@@ -1,4 +1,4 @@
-package lemons.combustible.passmaterial.passphrases.settings;
+package lemons.combustible.passmaterial.settings;
 
 /**
  * Created by hiv on 06.04.15.

@@ -216,4 +216,8 @@ public abstract class AbsRecyclerAdapter<I, VH extends AbsRecyclerHolder<I>>
         mData.clear();
         notifyDataSetChanged();
     }
+
+    public boolean isEmpty() {
+        return getData() == null || getData().isEmpty();
+    }
 }

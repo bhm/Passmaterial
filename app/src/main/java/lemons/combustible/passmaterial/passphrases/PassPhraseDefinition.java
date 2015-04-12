@@ -11,6 +11,7 @@ import java.util.List;
 import butterknife.InjectView;
 import butterknife.Optional;
 import lemons.combustible.passmaterial.passphrases.generators.wordnik.WordnikGenerator;
+import lemons.combustible.passmaterial.passphrases.model.PassPhrase;
 import rx.Observer;
 import rx.Subscription;
 

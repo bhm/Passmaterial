@@ -2,6 +2,8 @@ package lemons.combustible.passmaterial.passphrases;
 
 import java.util.List;
 
+import lemons.combustible.passmaterial.passphrases.model.PassPhrase;
+
 /**
  * Created by hiv on 31.03.15.
  */

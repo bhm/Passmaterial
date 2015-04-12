@@ -4,6 +4,8 @@ import android.view.View;
 
 import com.bustiblelemons.recycler.AbsRecyclerHolder;
 
+import lemons.combustible.passmaterial.passphrases.model.PassPhrase;
+
 /**
  * Created by hiv on 01.04.15.
  */

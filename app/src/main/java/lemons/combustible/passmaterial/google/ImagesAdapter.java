@@ -13,9 +13,21 @@ import lemons.combustible.passmaterial.R;
  */
 public class ImagesAdapter extends
                            AbsRecyclerAdapter<OnlinePhotoUrl, AbsRecyclerHolder<OnlinePhotoUrl>> {
+    private int mImageCountToShow;
+
     @Override
     public int getLayoutId(int viewType) {
         return R.layout.single_online_image;
+    }
+
+    @Override
+    public int getItemCount() {
+        return mImageCountToShow;
+    }
+
+    public ImagesAdapter withImageCountToShow(int arg) {
+        mImageCountToShow = arg;
+        return this;
     }
 
     @Override

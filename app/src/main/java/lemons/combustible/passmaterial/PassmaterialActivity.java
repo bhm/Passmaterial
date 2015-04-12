@@ -18,6 +18,7 @@ import com.bustiblelemons.model.OnlinePhotoUrl;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -27,17 +28,20 @@ import lemons.combustible.passmaterial.google.ImagesAdapter;
 import lemons.combustible.passmaterial.google.ImagesRetriever;
 import lemons.combustible.passmaterial.passphrases.NewPassPhraseAdapter;
 import lemons.combustible.passmaterial.passphrases.OnCopyToClipBoard;
-import lemons.combustible.passmaterial.passphrases.PassPhrase;
-import lemons.combustible.passmaterial.passphrases.PassPhraseConfig;
 import lemons.combustible.passmaterial.passphrases.PassPhraseGenerator;
+import lemons.combustible.passmaterial.passphrases.Word;
 import lemons.combustible.passmaterial.passphrases.generators.PassphraseGenerators;
 import lemons.combustible.passmaterial.passphrases.generators.PreferredGenerator;
-import lemons.combustible.passmaterial.passphrases.settings.OnOpenSettings;
+import lemons.combustible.passmaterial.passphrases.model.PassPhrase;
+import lemons.combustible.passmaterial.passphrases.model.PassPhraseConfig;
+import lemons.combustible.passmaterial.settings.OnOpenSettings;
+import lemons.combustible.passmaterial.settings.SettingsDialog;
 import rx.Observer;
 
 
 public class PassmaterialActivity extends ActionBarActivity implements OnCopyToClipBoard,
-                                                                       OnOpenSettings {
+                                                                       OnOpenSettings,
+                                                                       OnPassphraseConfigChanged {
 
     private static final Logger log = new Logger(PassmaterialActivity.class);
     @Optional
@@ -56,7 +60,7 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
     private ImagesAdapter        mImagesAdapter;
     private GridLayoutManager    mGridLayoutManager;
 
-    private Observer<Collection<OnlinePhotoUrl>> mImagesObserver =
+    private Observer<Collection<OnlinePhotoUrl>> mImagesObserver       =
             new Observer<Collection<OnlinePhotoUrl>>() {
                 @Override
                 public void onCompleted() {
@@ -73,7 +77,9 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
                     log.d("mImagesObserver onNext %s", onlinePhotoUrls);
                     if (mImagesRecyclerView != null) {
                         if (mImagesAdapter == null) {
-                            mImagesAdapter = new ImagesAdapter();
+                            int wordCount = PassPhraseConfig.getPassPhraseConfig().getWordCount();
+                            mImagesAdapter = new ImagesAdapter()
+                                    .withImageCountToShow(wordCount);
                             mImagesRecyclerView.setAdapter(mImagesAdapter);
                         }
                         int size = onlinePhotoUrls.size();
@@ -87,8 +93,7 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
 
                 }
             };
-    private PassPhraseConfig mPassphraseConfig;
-    private Observer<? super PassPhrase> mPassphrasesGenerated = new Observer<PassPhrase>() {
+    private Observer<? super PassPhrase>         mPassphrasesGenerated = new Observer<PassPhrase>() {
         @Override
         public void onCompleted() {
 
@@ -109,8 +114,8 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
                     mRecyclerView.setAdapter(mNewPassPhraseAdapter);
                 }
                 mNewPassPhraseAdapter.refreshData(passPhrase);
-                mNewPassPhraseAdapter.withShowAllWords(mPassphraseConfig.showAllWords());
-                ImagesRetriever.getImagesRetriever().getImagesFor(mImagesObserver, passPhrase.getWords());
+                List<Word> words = passPhrase.getWords();
+                ImagesRetriever.getImagesRetriever().getImagesFor(mImagesObserver, words);
             }
         }
     };
@@ -129,7 +134,7 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
         @Override
         public void onNext(PassPhraseConfig config) {
             if (config != null) {
-                mPassphraseConfig = config;
+                PassPhraseConfig.init(config);
                 onGenerateNewBundle();
             }
         }
@@ -149,8 +154,7 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
         @Override
         public void onNext(PassPhraseConfig config) {
             if (config != null) {
-                mPassphraseConfig = config;
-                openSettings(mPassphraseConfig);
+                openSettings(PassPhraseConfig.getPassPhraseConfig());
             }
         }
     };
@@ -158,7 +162,7 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
     @Optional
     @OnClick(android.R.id.button1)
     public void onGenerateNewBundle() {
-        mGenerator.generateBundleAsync(mPassphrasesGenerated, mPassphraseConfig);
+        mGenerator.generateBundleAsync(mPassphrasesGenerated, PassPhraseConfig.getPassPhraseConfig());
     }
 
     @Override
@@ -222,8 +226,8 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
 
     @Override
     public void onOpenSettings() {
-        if (mPassphraseConfig != null) {
-            openSettings(mPassphraseConfig);
+        if (PassPhraseConfig.isInited()) {
+            openSettings(PassPhraseConfig.getPassPhraseConfig());
         } else {
             if (mConfigFile == null) {
                 mConfigFile = PassPhraseConfig.getConfigFile(this);
@@ -235,5 +239,17 @@ public class PassmaterialActivity extends ActionBarActivity implements OnCopyToC
     private void openSettings(PassPhraseConfig config) {
         SettingsDialog dialog = SettingsDialog.newInstance(config);
         dialog.show(getSupportFragmentManager(), SettingsDialog.TAG);
+    }
+
+    @Override
+    public void onPassphraseConfigChanged(PassPhraseConfig config) {
+        if (mNewPassPhraseAdapter != null) {
+            mNewPassPhraseAdapter.notifyDataSetChanged();
+        }
+        if (mImagesAdapter != null) {
+            int wordCount = PassPhraseConfig.getPassPhraseConfig().getWordCount();
+            mImagesAdapter.withImageCountToShow(wordCount);
+            mImagesAdapter.notifyDataSetChanged();
+        }
     }
 }

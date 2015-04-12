@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 
-import lemons.combustible.passmaterial.passphrases.PassPhraseConfig;
+import lemons.combustible.passmaterial.passphrases.model.PassPhraseConfig;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;

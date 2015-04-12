@@ -1,6 +1,7 @@
 package lemons.combustible.passmaterial.google;
 
 import android.view.View;
+import android.widget.Toast;
 
 import com.bustiblelemons.model.OnlinePhotoUrl;
 import com.bustiblelemons.recycler.AbsRecyclerHolder;
@@ -20,6 +21,12 @@ public class RemoteImageHolder extends AbsRecyclerHolder<OnlinePhotoUrl> {
 
     public RemoteImageHolder(View view) {
         super(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Image", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
     <com.rey.material.widget.Switch
@@ -31,6 +32,7 @@
         android:textColor="@color/primary_text"
         android:textSize="@dimen/material_body_2"/>
 
+
     <com.rey.material.widget.Switch
         android:id="@id/use_padding"
         style="@style/QuickSettings"
@@ -57,5 +59,67 @@
         android:text="@string/use_padding"
         android:textColor="@color/primary_text"
         android:textSize="@dimen/material_body_2"/>
+
+    <RelativeLayout
+        android:id="@id/padding_additional_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/use_padding_title"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <com.rey.material.widget.Switch
+            android:id="@id/padding_use_letters"
+            style="@style/Subhead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/padding_use_letters_title"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/padding_use_letters_title"
+            android:gravity="center|left"
+            android:padding="@dimen/padding_8"
+            android:paddingLeft="@dimen/padding_16"
+            android:paddingRight="@dimen/padding_16"
+            android:text="Foo"/>
+
+        <TextView
+            android:id="@id/padding_use_letters_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:paddingBottom="@dimen/padding_16"
+            android:paddingLeft="@dimen/padding_10"
+            android:paddingTop="@dimen/padding_16"
+            android:text="@string/padding_letters"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/material_body_2"/>
+
+        <com.rey.material.widget.Switch
+            android:id="@id/padding_use_numbers"
+            style="@style/Subhead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/padding_use_numbers_title"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/padding_use_numbers_title"
+            android:gravity="center|left"
+            android:padding="@dimen/padding_8"
+            android:paddingLeft="@dimen/padding_16"
+            android:paddingRight="@dimen/padding_16"
+            android:text="Foo"/>
+
+        <TextView
+            android:id="@id/padding_use_numbers_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/padding_use_letters_title"
+            android:paddingBottom="@dimen/padding_16"
+            android:paddingLeft="@dimen/padding_10"
+            android:paddingTop="@dimen/padding_16"
+            android:text="@string/padding_numbers"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/material_body_2"/>
+    </RelativeLayout>
 
 </RelativeLayout>
