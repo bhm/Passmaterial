@@ -49,7 +49,7 @@ public class Logger {
     }
 
     public int e(Throwable throwable, String format, Object... args) {
-        return Log.e(mTag, String.format(Locale.ENGLISH, format), throwable);
+        return Log.e(mTag, String.format(Locale.ENGLISH, format, args), throwable);
     }
 
     public int i(Throwable throwable, String format, Object... args) {
