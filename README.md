@@ -1,4 +1,7 @@
 # Passmaterial
+
+# Work in Progress, more importantly ON-HOLD
+
 https://xkpasswd.net/s/ like implementation for Android. Using Wordnik for now.
 
 ![foo](/screens/screen1_framed.png)
